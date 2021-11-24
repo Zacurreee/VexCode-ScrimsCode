@@ -1,21 +1,8 @@
 /** Autonomous routines */
 #include "vex.h"
 /** programming skills run */
-void skills(){
-
-}
-/** Autonomous routine for blue left spawn. */
-void blueLeft(){
-
-}
+void Skills() { baseMove(10, 1000); }
 /** Autonomous routine for blue right spawn. */
-void blueRight(){
-
-}
+void Blue() {}
 /** Autonomous routine for red left spawn. */
-void redLeft(){
-}
-/** Autonomous routine for red right spawn. */
-void redRight(){
-
-}
+void Red() {}
