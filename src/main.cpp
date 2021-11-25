@@ -65,7 +65,7 @@ int main() {
     MotorFR.spin(fwd, right, pct);
     MotorCR.spin(fwd, right, pct);
     MotorBR.spin(fwd, right, pct);
-
+    // arm control
     if (Controller1.ButtonL1.pressing()) {
       MotorBA.spin(fwd, 100, pct);
     } else if (Controller1.ButtonL2.pressing()) {
@@ -86,22 +86,18 @@ int main() {
       MotorCR.stop(hold);
       MotorBR.stop(hold);
     }
-
+    // autobalance for driver control
     if (Controller1.ButtonX.pressing()) {
       autoBalance(15, 10, 0, false, true);
       wait(200, msec);
-      autoBalance(12, 10, 1, true, false);
-      // if (InertialL.pitch(deg) < 15){
+      autoBalance(13, 10, 1, true, false);
       MotorFL.stop(hold);
       MotorBL.stop(hold);
       MotorCL.stop(hold);
       MotorFR.stop(hold);
       MotorCR.stop(hold);
       MotorBR.stop(hold);
-      // }
-
     }
-    // printf("pitch: %.2f\n", InertialL.pitch(deg));
   }
   wait(5, msec);
 }

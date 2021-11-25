@@ -1,4 +1,4 @@
-#include "vex.h"
+// #include "vex.h"
 
 // const double inPerDeg = 0.0461916735714906;
 // double X = 0, Y = 0, prevEncdL = 0, prevEncdR = 0;

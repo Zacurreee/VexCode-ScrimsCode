@@ -10,6 +10,7 @@ double abscap(double value, double cap) {
     return value;
 }
 
+// Function for PID
 void baseMove(double targL, double targR, double kP, double kD, double cutoff) {
 
   MotorFL.resetRotation();
@@ -62,6 +63,7 @@ void baseMove(double dis, double kP, double kD, double cutoff) {
   baseMove(dis, dis, kP, kD, cutoff);
 }
 
+// Main Pid function to be called
 void baseMove(double dis, double cutoff) {
   baseMove(dis, DEFAULT_KP, DEFAULT_KD, cutoff);
 }
@@ -75,15 +77,15 @@ void pointTurn(double a, double cutoff) {
   pointTurn(a, TURN_KP, TURN_KD, cutoff);
 }
 
-void autoBalance(double pitch, double kP, double kD, bool reversed, bool cutoff) {
+// Function for autobalancing: Values to be tuned: Cutoff values
+void autoBalance(double pitch, double kP, double kD, bool reversed,
+                 bool cutoff) {
 
   double error = pitch - InertialL.pitch(deg);
-  // double errorR = pitch - InertialL.pitch(deg);
 
   double prevErrorL = error, prevErrorR = error;
   double powerL = 0, powerR = 0;
-  // fabs(error) > 1.5
- 
+
   while (cutoff ? fabs(error) > 0.5 : fabs(-7 - InertialL.pitch(deg)) > 0.5) {
     error = pitch - InertialL.pitch(deg);
 
@@ -93,27 +95,24 @@ void autoBalance(double pitch, double kP, double kD, bool reversed, bool cutoff)
     double targpowerL = error * kP + derivativeL * kD;
     double targpowerR = error * kP + derivativeR * kD;
 
-    // double speedupL = targpowerL - powerL;
-    // double speedupR = targpowerR - powerR;
-
-    // powerL += abscap(speedupL, RAMPING_POWER);
-    // powerR += abscap(speedupR, RAMPING_POWER);
-
     powerL = abscap(targpowerL, MAX_POWER);
     powerR = abscap(targpowerR, MAX_POWER);
 
-    int dir = reversed ? -1: 1;
+    int dir = reversed ? -1 : 1;
 
-    MotorFL.spin(fwd, dir*powerL, pct);
-    MotorCL.spin(fwd, dir*powerL, pct);
-    MotorBL.spin(fwd, dir*powerL, pct);
-    MotorFR.spin(fwd, dir*powerR, pct);
-    MotorCR.spin(fwd, dir*powerR, pct);
-    MotorBR.spin(fwd, dir*powerR, pct);
+    MotorFL.spin(fwd, dir * powerL, pct);
+    MotorCL.spin(fwd, dir * powerL, pct);
+    MotorBL.spin(fwd, dir * powerL, pct);
+    MotorFR.spin(fwd, dir * powerR, pct);
+    MotorCR.spin(fwd, dir * powerR, pct);
+    MotorBR.spin(fwd, dir * powerR, pct);
 
-    printf("error: %.2f\n", pitch - InertialL.pitch(deg));
+    // printf("error: %.2f\n", pitch - InertialL.pitch(deg));
     wait(5, msec);
   }
 }
 
-void autoBalance(double pitch) { autoBalance(pitch, DEFAULT_KP, DEFAULT_KD, false, true); }
+// Main autoBalacne functioin to be called
+void autoBalance(double pitch) {
+  autoBalance(pitch, DEFAULT_KP, DEFAULT_KD, false, true);
+}
