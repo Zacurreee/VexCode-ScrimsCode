@@ -1,44 +1,19 @@
-// #include "vex.h"
+#include "vex.h"
 
-// const double inPerDeg = 0.0461916735714906;
-// double X = 0, Y = 0, prevEncdL = 0, prevEncdR = 0;
-// double encdL = 0, encdR = 0, bearing = 0, angle = halfPI;
+// void resetCoords(double X, double Y) {
+//   X = 0;
+//   Y = 0;
+// }
+// void Odometry(void *ignore) {
 
-// void setCoords(double x, double y){
-//   X = x;
-//   Y = y;
-// }
-  
-// void Odometry(void *ignore){
-//   while (true){
-//   if(InertialL.isCalibrating()){
-//       (EncoderE.resetRotation()); 
-//    }else  {
-      
-//       double encdChangeL = encdL-prevEncdL;
-//       double encdChangeR = encdR-prevEncdR;
-      
-//       double distance = (encdChangeL = encdChangeR)/2*inPerDeg;
-//       X+= distance*cos(angle); 
-//       prevEncdL = encdL;
-//       prevEncdR = encdR;
-//    }
-//    wait(5, msec);
-//   }    
-// }
+//   while (true) {
+//     double posL = MotorCL.position(deg), posR = MotorCL.position(deg);
+//     double prevposL = posL, prevposR = posR;
+//     double posChangeL = posL - prevposL, posChangeR = posR - prevposR;
 
-// void resetPrevEncd()  {
-//     prevEncdL = 0;
-//     prevEncdR = 0;
-// }
-
-// void Sensors(void*ignore){
-//     while(true){
-//       if(!InertialL.isCalibrating()){
-//         encdL = MotorBL.position(deg);
-//         encdR = MotorBR.position(deg);
-//       bearing = InertialL.rotation();
-//       angle = halfPI - bearing * toRad;
-// }
+//     if (InertialL.isCalibrating()) {
+//       resetCoords(0, 0);
+//       double dist = posChangeL - posChangeR/2* INCH_PER_DEG;
+//     }
 //   }
 // }

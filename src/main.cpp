@@ -88,9 +88,9 @@ int main() {
     }
     // autobalance for driver control
     if (Controller1.ButtonX.pressing()) {
-      autoBalance(15, 10, 0, false, true);
+      autoBalance(15, 10, 0, -6.5, false, true);
       wait(200, msec);
-      autoBalance(13, 10, 1, true, false);
+      autoBalance(13, 10, 1, -6.5, true, false);
       MotorFL.stop(hold);
       MotorBL.stop(hold);
       MotorCL.stop(hold);

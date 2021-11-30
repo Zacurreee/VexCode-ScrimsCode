@@ -19,6 +19,7 @@ motor MotorFA = motor(PORT12, ratio36_1, false);
 motor MotorBA = motor(PORT9, ratio36_1, false);
 controller Controller1 = controller(primary);
 encoder EncoderE = encoder(Brain.ThreeWirePort.E);
+encoder EncoderD = encoder(Brain.ThreeWirePort.D);
 inertial InertialL = inertial(PORT8);
 timer Timer;
 

@@ -14,6 +14,7 @@ extern motor MotorFA;
 extern motor MotorBA;
 extern controller Controller1;
 extern encoder EncoderE;
+extern encoder EncoderD;
 extern inertial InertialL;
 extern timer Timer;
 

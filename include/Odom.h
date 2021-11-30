@@ -1,10 +1,13 @@
 #ifndef _ODOM_H_
 #define _ODOM_H_
-extern double X, Y;
-extern const double inPerDeg;
-void setCoords(double x, double y);
-void Odometry(void * ignore);
-void resetPrevEncd();
-extern double encdL, encdR, bearing, angle;
-void Sensors(void * ignore);
+
+// #define HALFPI 1.57079632679489661923132169164
+// #define PI 3.14159265358979323846264338328
+// #define TWOPI 6.28318530717958647692528676656
+
+// #define ToRAD 0.0174532925199432957692369076849
+// #define ToDEG 57.2957795130823208767981548141
+
+// void resetCoords(double X, double Y);
+// void Odometry(void *ignore);
 #endif

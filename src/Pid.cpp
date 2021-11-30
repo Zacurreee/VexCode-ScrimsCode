@@ -1,4 +1,4 @@
-#include "Pid.h"
+
 #include "vex.h"
 
 double abscap(double value, double cap) {
@@ -29,7 +29,7 @@ void baseMove(double targL, double targR, double kP, double kD, double cutoff) {
   double prevErrorL = errorL, prevErrorR = errorR;
   double powerL = 0, powerR = 0;
   double start = Timer.time();
-
+  // cutoff can be split into waitBase, according to preference
   while ((fabs(errorL - MotorCL.position(deg)) > DISTANCE_LEEWAY ||
           fabs(errorR - MotorCR.position(deg)) > DISTANCE_LEEWAY) &&
          (Timer.time() - start) < cutoff) {
@@ -46,8 +46,8 @@ void baseMove(double targL, double targR, double kP, double kD, double cutoff) {
     powerL += abscap(speedupL, RAMPING_POWER);
     powerR += abscap(speedupR, RAMPING_POWER);
 
-    powerL = abscap(powerL, MAX_POWER);
-    powerR = abscap(powerR, MAX_POWER);
+    powerL = abscap(powerL, BASE_MAX_POWER);
+    powerR = abscap(powerR, BASE_MAX_POWER);
 
     MotorFL.spin(fwd, powerL, pct);
     MotorCL.spin(fwd, powerL, pct);
@@ -78,7 +78,7 @@ void pointTurn(double a, double cutoff) {
 }
 
 // Function for autobalancing: Values to be tuned: Cutoff values
-void autoBalance(double pitch, double kP, double kD, bool reversed,
+void autoBalance(double pitch, double kP, double kD, double cut, bool reversed,
                  bool cutoff) {
 
   double error = pitch - InertialL.pitch(deg);
@@ -86,7 +86,9 @@ void autoBalance(double pitch, double kP, double kD, bool reversed,
   double prevErrorL = error, prevErrorR = error;
   double powerL = 0, powerR = 0;
 
-  while (cutoff ? fabs(error) > 0.5 : fabs(-7 - InertialL.pitch(deg)) > 0.5) {
+  while (cutoff ? fabs(error) > 0.5
+                : fabs(cut - InertialL.pitch(deg)) >
+                      0.5) { // values here require tuning to robot
     error = pitch - InertialL.pitch(deg);
 
     double derivativeL = error - prevErrorL;
@@ -95,8 +97,8 @@ void autoBalance(double pitch, double kP, double kD, bool reversed,
     double targpowerL = error * kP + derivativeL * kD;
     double targpowerR = error * kP + derivativeR * kD;
 
-    powerL = abscap(targpowerL, MAX_POWER);
-    powerR = abscap(targpowerR, MAX_POWER);
+    powerL = abscap(targpowerL, BALANCED_MAX_POWER);
+    powerR = abscap(targpowerR, BALANCED_MAX_POWER);
 
     int dir = reversed ? -1 : 1;
 
@@ -112,7 +114,7 @@ void autoBalance(double pitch, double kP, double kD, bool reversed,
   }
 }
 
-// Main autoBalacne functioin to be called
-void autoBalance(double pitch) {
-  autoBalance(pitch, DEFAULT_KP, DEFAULT_KD, false, true);
+// Main autoBalacne function to be called
+void autoBalance(double pitch, double cut, bool reversed, bool cutoff) {
+  autoBalance(pitch, DEFAULT_KP, DEFAULT_KD, cut, false, true);
 }
