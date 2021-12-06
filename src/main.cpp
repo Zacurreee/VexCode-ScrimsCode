@@ -33,6 +33,7 @@ int main() {
     wait(5, msec);
   }
   bool isTank = true, enableToggle = true;
+  bool isCoast = true, enableBrake = true;
   while (true) {
     double left, right;
 
@@ -65,6 +66,32 @@ int main() {
     MotorFR.spin(fwd, right, pct);
     MotorCR.spin(fwd, right, pct);
     MotorBR.spin(fwd, right, pct);
+
+    if (Controller1.ButtonA.pressing()) {
+      if (enableBrake) {
+        isCoast = !isCoast;
+        enableBrake = false;
+      }
+    } else {
+      enableBrake = true;
+    }
+
+    if (isCoast) {
+      MotorFL.setBrake(coast);
+      MotorBL.setBrake(coast);
+      MotorCL.setBrake(coast);
+      MotorFR.setBrake(coast);
+      MotorCR.setBrake(coast);
+      MotorBR.setBrake(coast);
+    } else {
+      MotorFL.setBrake(hold);
+      MotorBL.setBrake(hold);
+      MotorCL.setBrake(hold);
+      MotorFR.setBrake(hold);
+      MotorCR.setBrake(hold);
+      MotorBR.setBrake(hold);
+    }
+
     // arm control
     if (Controller1.ButtonL1.pressing()) {
       MotorBA.spin(fwd, 100, pct);
@@ -78,25 +105,18 @@ int main() {
       MotorFA.stop(hold);
       MotorBA.stop(hold);
     }
-    if (Controller1.ButtonA.pressing()) {
-      MotorFL.stop(hold);
-      MotorBL.stop(hold);
-      MotorCL.stop(hold);
-      MotorFR.stop(hold);
-      MotorCR.stop(hold);
-      MotorBR.stop(hold);
-    }
+
     // autobalance for driver control
     if (Controller1.ButtonX.pressing()) {
       autoBalance(15, 10, 0, -6.5, false, true);
       wait(200, msec);
-      autoBalance(13, 10, 1, -6.5, true, false);
-      MotorFL.stop(hold);
-      MotorBL.stop(hold);
-      MotorCL.stop(hold);
-      MotorFR.stop(hold);
-      MotorCR.stop(hold);
-      MotorBR.stop(hold);
+      autoBalance(13, 10, 1, -6, true, false);
+      MotorFL.setBrake(hold);
+      MotorBL.setBrake(hold);
+      MotorCL.setBrake(hold);
+      MotorFR.setBrake(hold);
+      MotorCR.setBrake(hold);
+      MotorBR.setBrake(hold);
     }
   }
   wait(5, msec);

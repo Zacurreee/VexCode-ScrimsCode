@@ -17,9 +17,8 @@
 #include "Odom.h"
 #include "autonSets.h"
 #include "Pid.h"
-#include "Math.h"
 #include "robot-config.h"
-
+#include "Math.h"
 #define waitUntil(condition)                                                   \
   do {                                                                         \
     wait(5, msec);                                                             \

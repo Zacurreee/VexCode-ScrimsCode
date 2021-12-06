@@ -10,7 +10,6 @@ double abscap(double value, double cap) {
     return value;
 }
 
-// Function for PID
 void baseMove(double targL, double targR, double kP, double kD, double cutoff) {
 
   MotorFL.resetRotation();
@@ -58,6 +57,7 @@ void baseMove(double targL, double targR, double kP, double kD, double cutoff) {
   }
   wait(5, msec);
 }
+
 
 void baseMove(double dis, double kP, double kD, double cutoff) {
   baseMove(dis, dis, kP, kD, cutoff);
