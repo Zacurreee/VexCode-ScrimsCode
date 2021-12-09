@@ -118,6 +118,12 @@ int main() {
       MotorCR.setBrake(hold);
       MotorBR.setBrake(hold);
     }
+
+    if(Controller1.ButtonB.pressing()){
+      setCoords(0, 0);
+      baseMove(10 ,1000);
+      printf("X %.2f , Y %.2f\n", X , Y);
+    }
   }
   wait(5, msec);
 }

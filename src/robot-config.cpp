@@ -9,12 +9,12 @@ brain Brain;
 
 // VEXcode device constructors
 encoder EncoderA = encoder(Brain.ThreeWirePort.A);
-motor MotorFL = motor(PORT20, ratio18_1, false);
-motor MotorCL = motor(PORT19, ratio18_1, false);
-motor MotorBL = motor(PORT11, ratio18_1, false);
-motor MotorFR = motor(PORT10, ratio18_1, true);
-motor MotorCR = motor(PORT2, ratio18_1, true);
-motor MotorBR = motor(PORT1, ratio18_1, true);
+motor MotorFL = motor(PORT20, ratio6_1, false);
+motor MotorCL = motor(PORT19, ratio6_1, false);
+motor MotorBL = motor(PORT11, ratio6_1, false);
+motor MotorFR = motor(PORT10, ratio6_1, true);
+motor MotorCR = motor(PORT2, ratio6_1, true);
+motor MotorBR = motor(PORT1, ratio6_1, true);
 motor MotorFA = motor(PORT12, ratio36_1, false);
 motor MotorBA = motor(PORT9, ratio36_1, false);
 controller Controller1 = controller(primary);

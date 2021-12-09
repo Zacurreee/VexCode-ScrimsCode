@@ -10,6 +10,8 @@ double X = 0, Y = 0, prevEncdL = 0, prevEncdR = 0;
 void setCoords(double x, double y) {
   X = x;
   Y = y;
+  printf("X %.2f , Y %.2f\n", X , Y);
+
 }
 void Odometry(void *ignore) {
   while (true) {
@@ -19,12 +21,13 @@ void Odometry(void *ignore) {
       double encdChangeL = encdL - prevEncdL;
       double encdChangeR = encdR - prevEncdR;
 
-      double distance = (encdChangeL + encdChangeR) / 2 * inPerDeg;
-      X += distance * cos(ang);
-      Y += distance * sin(ang);
+      double dist = (encdChangeL + encdChangeR) / 2 * inPerDeg;
+      X += dist * cos(ang);
+      Y += dist * sin(ang);
       /** update prev variables */
       prevEncdL = encdL;
       prevEncdR = encdR;
+      
     }
     wait(5, msec);
   }
